@@ -23,10 +23,10 @@ def lists(request):
 
 def detail(request, post_id):
     post = Post.objects.get(id=post_id)
-    comment = Comment.objects.filter(post=post_id)
+    comments = Comment.objects.filter(post=post_id)
     context = {
         'post' : post,
-        'comment' : comment
+        'comments' : comments
     }
     return render(request, 'detail.html', context)
 
@@ -58,7 +58,7 @@ def delete(request, post_id):
     return redirect('post:lists')
 
 @login_required
-def commentcreate(request, post_id):
+def create_comment(request, post_id):
     user = request.user
     post_id = post_id
     content = request.POST['content']
